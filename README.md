@@ -1,50 +1,93 @@
-# Vue.js + Node.js Express + MySQL: CRUD example on same server/port
+Here’s a sample README file for your basic To-Do app that contains CRUD functionality, utilizing Docker for containerization. You can adjust the content as needed to fit your project specifics.
 
-For more detail, please visit:
-> [How to serve/combine Vue App with Express](https://bezkoder.com/serve-vue-app-express/)
+---
 
-> [Vue.js CRUD App with Vue Router & Axios](https://bezkoder.com/vue-js-crud-app/)
+# To-Do App
 
-> [Build Node.js Rest APIs with Express, Sequelize & MySQL](https://bezkoder.com/node-js-express-sequelize-mysql/)
+This is a basic To-Do application that provides CRUD (Create, Read, Update, Delete) functionality. The application is containerized using Docker and consists of two Docker containers: one for the Node.js application and another for the MySQL database.
 
-More Practice:
-> [Vue Pagination with Axios and API example](https://bezkoder.com/vue-pagination-axios/)
+## Prerequisites
 
-> [Server side Pagination in Node.js with Sequelize and MySQL](https://bezkoder.com/node-js-sequelize-pagination-mysql/)
+- Docker installed on your machine.
+- Docker Compose installed on your machine.
 
-> [Deploying/Hosting Node.js app on Heroku with MySQL database](https://bezkoder.com/deploy-node-js-app-heroku-cleardb-mysql/)
 
-Associations:
-> [Sequelize Associations: One-to-Many Relationship example](https://bezkoder.com/sequelize-associate-one-to-many/)
+## Configuration
 
-> [Sequelize Associations: Many-to-Many Relationship example](https://bezkoder.com/sequelize-associate-many-to-many/)
+Before you start the application, you may want to customize the database configuration and the Docker settings.
 
-Fullstack with Node.js Express:
-> [Vue.js + Node.js Express + MySQL](https://bezkoder.com/vue-js-node-js-express-mysql-crud-example/)
+1. **Modify Database Configuration:**
+   Open the `db.config.js` file and update the following fields as necessary:
+   - `PASSWORD`: Set your desired MySQL root password.
+   - `DB`: Set the name of the database you want to create or use.
 
-> [Vue.js + Node.js Express + PostgreSQL](https://bezkoder.com/vue-node-express-postgresql/)
+   Example:
+   ```javascript
+   module.exports = {
+     HOST: "mysql_db",
+     USER: "root",
+     PASSWORD: "your_new_password",
+     DB: "your_database_name",
+     dialect: "mysql",
+     pool: {
+       max: 5,
+       min: 0,
+       acquire: 30000,
+       idle: 10000
+     }
+   };
+   ```
 
-> [Vue.js + Node.js Express + MongoDB](https://bezkoder.com/vue-node-express-mongodb-mevn-crud/)
+2. **Modify Docker Compose Configuration:**
+   Open the `docker-compose.yml` file and update the following environment variables for the MySQL service as necessary:
+   - `MYSQL_ROOT_PASSWORD`: Set the MySQL root password.
+   - `MYSQL_DATABASE`: Set the name of the database you want to create.
 
-Fullstack with Spring Boot:
-> [Vue.js + Spring Boot](https://bezkoder.com/spring-boot-vue-js-crud-example/)
+   Example:
+   ```yaml
+   environment:
+     - MYSQL_ROOT_PASSWORD=your_new_password
+     - MYSQL_DATABASE=your_database_name
+   ```
 
-> [Vue.js + Spring Boot + MongoDB](https://bezkoder.com/spring-boot-vue-mongodb/)
+## Building the Docker Image
 
-Fullstack with Django:
-> [Vue.js + Django](https://bezkoder.com/django-vue-js-rest-framework/)
+In the terminal, navigate to the directory containing the `Dockerfile` for the Node.js application. Run the following command to build the Docker image:
 
-Serverless with Firebase:
-> [Vue Firebase Realtime Database: CRUD example](https://bezkoder.com/vue-firebase-realtime-database/)
-
-> [Vue Firestore CRUD example](https://bezkoder.com/vue-firestore-crud/)
-
-## Project setup
+```bash
+docker build -t todo_app .
 ```
-npm install
+
+## Running the Application
+
+To start the application, navigate to the directory containing the `docker-compose.yml` file and run:
+
+```bash
+docker-compose up -d
 ```
 
-### Run
+This command will start both the Node.js application and the MySQL database containers in detached mode.
+
+## Accessing the Application
+
+Once the application is running, you can access it at:
+
 ```
-node server.js
+http://localhost:8080
 ```
+
+## Stopping the Application
+
+To stop the application and remove the containers, run the following command in the same directory as the `docker-compose.yml`:
+
+```bash
+docker-compose down
+```
+
+## Conclusion
+
+You now have a basic To-Do app running with CRUD functionality using Docker containers. Feel free to modify the application further to suit your needs!
+
+---
+
+You can add any additional details or usage instructions specific to your application as needed. Let me know if you want any modifications!
