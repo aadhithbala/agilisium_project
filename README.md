@@ -1,7 +1,3 @@
-Here’s a sample README file for your basic To-Do app that contains CRUD functionality, utilizing Docker for containerization. You can adjust the content as needed to fit your project specifics.
-
----
-
 # To-Do App
 
 This is a basic To-Do application that provides CRUD (Create, Read, Update, Delete) functionality. The application is containerized using Docker and consists of two Docker containers: one for the Node.js application and another for the MySQL database.
