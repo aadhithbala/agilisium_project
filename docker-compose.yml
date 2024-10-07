@@ -1,0 +1,19 @@
+services:
+ tutorial_app:
+    image: tutorial_app:latest
+    container_name: todo_app
+    ports:
+     - 8080:8080
+    restart: unless-stopped
+
+ db:
+   image: mysql:latest
+   container_name: mysql_db 
+   ports:
+     - 3306:3306
+   environment:
+     - MYSQL_ROOT_PASSWORD=123456
+     - MYSQL_DATABASE=testdb
+   volumes:
+     - ${HOME}/db_volume:/var/lib/mysql
+   restart: unless-stopped
