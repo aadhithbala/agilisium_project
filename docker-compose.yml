@@ -12,8 +12,8 @@ services:
    ports:
      - 3306:3306
    environment:
-     - MYSQL_ROOT_PASSWORD=123456
-     - MYSQL_DATABASE=testdb
+     - MYSQL_ROOT_PASSWORD=rmGQk5CHy2R7O8
+     - MYSQL_DATABASE=todo_app_db
    volumes:
      - ${HOME}/db_volume:/var/lib/mysql
    restart: unless-stopped
