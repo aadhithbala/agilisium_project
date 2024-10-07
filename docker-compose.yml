@@ -1,6 +1,6 @@
 services:
  tutorial_app:
-    image: tutorial_app:latest
+    image: todo_app:latest
     container_name: todo_app
     ports:
      - 8080:8080
