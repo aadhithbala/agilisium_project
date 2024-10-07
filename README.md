@@ -82,8 +82,4 @@ docker-compose down
 
 ## Conclusion
 
-You now have a basic To-Do app running with CRUD functionality using Docker containers. Feel free to modify the application further to suit your needs!
-
----
-
-You can add any additional details or usage instructions specific to your application as needed. Let me know if you want any modifications!
+You now have a basic To-Do app running with CRUD functionality using Docker containers. 
