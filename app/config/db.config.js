@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: "mysql_db",
-  USER: "root",
-  PASSWORD: "rmGQk5CHy2R7O8",
-  DB: "todo_app_db",
+  HOST: process.env.DB_HOST,
+  USER: process.env.DB_USER,
+  PASSWORD: process.env.DB_PASSWORD,
+  DB: process.env.DB_NAME,
   dialect: "mysql",
   pool: {
     max: 5,
