@@ -10,8 +10,8 @@ services:
    image: mysql:latest
    container_name: mysql_db 
    environment:
-     - MYSQL_ROOT_PASSWORD=rmGQk5CHy2R7O8
-     - MYSQL_DATABASE=todo_app_db
+     - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+     - MYSQL_DATABASE=${DB_NAME}
    volumes:
      - ${HOME}/db_volume:/var/lib/mysql
    restart: unless-stopped
