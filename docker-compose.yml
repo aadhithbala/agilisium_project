@@ -1,22 +1,35 @@
 services:
- tutorial_app:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}             
+    ports:
+      - "3306:3306"                                         
+    volumes:
+      - mysql_data:/var/lib/mysql                            
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]  # Check MySQL status
+      interval: 10s
+      timeout: 5s  
+      retries: 5  
+
+  tutorial_app:
     image: todo_app:latest
     container_name: todo_app
     ports:
-     - 8080:8080
+      - 8080:8080
     restart: unless-stopped
     environment:
-      - DB_NAME=${DB_NAME}
-      - DB_HOST=${DB_HOST}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}                                    
+      DB_USER: ${DB_USER}                           
+      DB_PASSWORD: ${DB_ROOT_PASSWORD}                
+      DB_NAME: ${DB_NAME}                          
+    depends_on:
+      mysql:
+        condition: service_healthy                
 
- db:
-   image: mysql:latest
-   container_name: mysql_db 
-   environment:
-     - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-     - MYSQL_DATABASE=${DB_NAME}
-   volumes:
-     - ${HOME}/db_volume:/var/lib/mysql
-   restart: unless-stopped
+volumes:
+  mysql_data:
