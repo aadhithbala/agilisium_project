@@ -1,0 +1,27 @@
+name: Build and Push Docker Image to Private ECR
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build Docker image from Dockerfile
+      run: |
+        docker build -t todo_app .
+        docker tag todo_app:latest ${{ secrets.ECR_REPOSITORY }}:latest
+
+    - name: Push built image to ECR
+      run: |
+        docker push ${{ secrets.ECR_REPOSITORY }}:latest
