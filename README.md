@@ -1,85 +1,66 @@
-# To-Do App
+# To-Do Application Documentation
 
-This is a basic To-Do application that provides CRUD (Create, Read, Update, Delete) functionality. The application is containerized using Docker and consists of two Docker containers: one for the Node.js application and another for the MySQL database.
+This is a basic To-Do application that provides CRUD (Create, Read, Update, Delete) functionality.
 
-## Prerequisites
+## Local Deployment
 
-- Docker installed on your machine.
-- Docker Compose installed on your machine.
+### Prerequisites
+- Docker Engine installed on your machine
+- Docker Compose installed on your machine
+- Git (for cloning the repository)
 
+### Environment Setup
 
-## Configuration
+1. Create a `.env` file in the root directory with the following variables:
+```
+DB_PASSWORD=YOURPASSWORD    # MySQL database password
+DB_NAME=YOURDBNAME         # Name of the database to be created
+DB_USER=DBUSER            # Database user (typically 'root' for local development)
+DB_HOST=DBHOST            # Use 'mysql' for local deployment
+```
 
-Before you start the application, you may want to customize the database configuration and the Docker settings.
+### Deployment Steps
 
-1. **Modify Database Configuration:**
-   Open the `db.config.js` file and update the following fields as necessary:
-   - `PASSWORD`: Set your desired MySQL root password.
-   - `DB`: Set the name of the database you want to create or use.
-
-   Example:
-   ```javascript
-   module.exports = {
-     HOST: "mysql_db",
-     USER: "root",
-     PASSWORD: "your_new_password",
-     DB: "your_database_name",
-     dialect: "mysql",
-     pool: {
-       max: 5,
-       min: 0,
-       acquire: 30000,
-       idle: 10000
-     }
-   };
+1. **Build the Docker Image**
+   ```bash
+   # Navigate to the project directory containing the Dockerfile
+   docker build -t todo_app .
    ```
 
-2. **Modify Docker Compose Configuration:**
-   Open the `docker-compose.yml` file and update the following environment variables for the MySQL service as necessary:
-   - `MYSQL_ROOT_PASSWORD`: Set the MySQL root password.
-   - `MYSQL_DATABASE`: Set the name of the database you want to create.
-
-   Example:
-   ```yaml
-   environment:
-     - MYSQL_ROOT_PASSWORD=your_new_password
-     - MYSQL_DATABASE=your_database_name
+2. **Start the Application**
+   ```bash
+   # Start both containers (MySQL and Todo App)
+   docker compose up -d
    ```
 
-## Building the Docker Image
+3. **Verify Deployment**
+   - The application will be available at `http://localhost:8080`
+   - MySQL database will be accessible on port 3306
 
-In the terminal, navigate to the directory containing the `Dockerfile` for the Node.js application. Run the following command to build the Docker image:
+### Container Information
+- **Todo App Container**
+  - Container name: `todo_app`
+  - Port: 8080
+  - Depends on MySQL container being healthy
 
+- **MySQL Container**
+  - Container name: `mysql_db`
+  - Port: 3306
+  - Includes health check configuration
+  - Persistent volume for data storage
+
+### Stopping the Application
 ```bash
-docker build -t todo_app .
+# Stop and remove containers
+docker compose down
 ```
 
-## Running the Application
+### Troubleshooting
+- Ensure all environment variables in `.env` file are correctly set
+- Check container logs using `docker logs todo_app` or `docker logs mysql_db`
+- Verify MySQL container health status using `docker ps`
+- Ensure ports 8080 and 3306 are not in use by other applications
 
-To start the application, navigate to the directory containing the `docker-compose.yml` file and run:
+## AWS Deployment
+WIP!!!!!!! - WORKING ON CORS ISSUE
 
-```bash
-docker-compose up -d
-```
-
-This command will start both the Node.js application and the MySQL database containers in detached mode.
-
-## Accessing the Application
-
-Once the application is running, you can access it at:
-
-```
-http://localhost:8080
-```
-
-## Stopping the Application
-
-To stop the application and remove the containers, run the following command in the same directory as the `docker-compose.yml`:
-
-```bash
-docker-compose down
-```
-
-## Conclusion
-
-You now have a basic To-Do app running with CRUD functionality using Docker containers. 
