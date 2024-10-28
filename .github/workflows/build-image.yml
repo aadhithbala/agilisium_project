@@ -4,7 +4,17 @@ on:
   push:
     branches:
       - master
-
+    paths:
+      # Only trigger the build image workflow on changes to application and docker files 
+      - 'app/**'
+      - 'server.js'
+      - 'package.json'
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+    paths-ignore:
+      - 'README.md'
+      - 'terraform/**'
+      - '.gitignore'
 jobs:
   build:
     runs-on: ubuntu-latest
