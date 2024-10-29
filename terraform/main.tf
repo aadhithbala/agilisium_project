@@ -79,6 +79,7 @@ resource "aws_db_instance" "todo_app_db" {
   engine_version    = "8.0.39"
   instance_class    = "db.t3.micro"
   allocated_storage = 20
+  storage_type           = "gp2" #Use gp2 storage to stay within freetier
 
   db_name  = "todo_app_db"
   username = "admin"
