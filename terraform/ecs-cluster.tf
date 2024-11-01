@@ -10,7 +10,7 @@ resource "aws_ecs_cluster" "todo_app_cluster" {
 # Launch Template for ECS EC2 instances
 resource "aws_launch_template" "ecs_lt" {
   name_prefix   = "ecs-template"
-  image_id      = "ami-04a37924ffe27da53"  # Amazon Linux 2 ECS-optimized AMI (update for your region)
+  image_id      = data.aws_ssm_parameter.ecs_node_ami.value
   instance_type = "t2.micro"
 
   network_interfaces {
@@ -55,7 +55,7 @@ resource "aws_autoscaling_group" "ecs_asg" {
   desired_capacity    = 2
   max_size           = 3
   min_size           = 2
-  vpc_zone_identifier = [data.aws_subnet_ids.default.ids] 
+  vpc_zone_identifier = data.aws_subnets.default.ids
 
   launch_template {
     id      = aws_launch_template.ecs_lt.id
@@ -103,7 +103,8 @@ resource "aws_ecs_cluster_capacity_providers" "main" {
   }
 }
 
-# Data source for VPC subnet IDs
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
+#Use ssm param instead of hardcoding ami id
+
+data "aws_ssm_parameter" "ecs_node_ami" {
+  name = "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
 }
