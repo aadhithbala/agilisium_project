@@ -8,9 +8,9 @@ resource "aws_db_instance" "todo_app_db" {
   allocated_storage = 20
   storage_type      = "gp2" #Use gp2 storage to stay within freetier
 
-  db_name  = "todo_app_db"
-  username = "admin"
-  password = "white123" #TODO: Fix this - Need to figure out how to pass this dynamically
+  db_name  = var.db_name
+  username = var.db_username
+  password = var.db_password
 
   vpc_security_group_ids = [aws_security_group.todo_db_access_sg.id]
 

@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "todo_app" {
         },
         {
           name  = "DB_NAME"
-          value = aws_db_instance.todo_app_db.db_name
+          value = var.db_name
         },
         {
           name  = "DB_USER"
