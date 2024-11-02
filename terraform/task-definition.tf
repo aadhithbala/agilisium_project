@@ -5,10 +5,11 @@ resource "aws_ecs_task_definition" "todo_app" {
   network_mode            = "bridge"
   cpu                     = "200"
   memory                  = "512"
+
   container_definitions = jsonencode([
     {
       name         = "todo-app"
-      image        = #TODO:lVARIABLE
+      image        = "${aws_ecr_repository.todo-app.repository_url}:latest"
       essential    = true
       cpu          = 200
       memory       = 512
@@ -27,19 +28,19 @@ resource "aws_ecs_task_definition" "todo_app" {
       environment = [
         {
           name  = "DB_HOST"
-          value = #TODO:lVARIABLE
+          value = aws_db_instance.todo_app_db.endpoint
         },
         {
           name  = "DB_NAME"
-          value = #TODO:lVARIABLE
+          value = aws_db_instance.todo_app_db.db_name
         },
         {
           name  = "DB_USER"
-          value = #TODO:lVARIABLE
+          value = var.db_username
         },
         {
           name  = "DB_PASS"
-          value = #TODO:lVARIABLE
+          value = var.db_password
         }
       ]
     }
