@@ -4,7 +4,7 @@ resource "aws_ecs_service" "todo_app" {
   cluster         = aws_ecs_cluster.todo_app_cluster.id
   task_definition = "${aws_ecs_task_definition.todo_app.family}:${aws_ecs_task_definition.todo_app.revision}"
   desired_count   = 2
-  launch_type     = "EC2"
+#  launch_type     = "EC2"
 
   # Deployment configuration
   deployment_maximum_percent         = 200
@@ -17,7 +17,7 @@ resource "aws_ecs_service" "todo_app" {
     base             = 1
     weight          = 100
   }
-  
+
   force_new_deployment = true
 
   deployment_circuit_breaker {
