@@ -17,9 +17,3 @@ variable "db_name" {
   type        = string
   sensitive   = true
 }
-
-variable "terraform_remote_state" {
-  description = "Terraform remote s3 state ucket Name"
-  type        = string
-  sensitive   = true
-}
