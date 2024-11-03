@@ -1,16 +1,10 @@
 name: Build and Push Docker Image to Private ECR
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      # Only trigger the build image workflow on changes to application and docker files
-      - "app/**"
-      - "server.js"
-      - "package.json"
-      - "Dockerfile"
-      - "docker-compose.yml"
+  workflow_run:
+    workflows: ["Set Up ECR Repository"]
+    types:
+      - completed
 jobs:
   build:
     runs-on: ubuntu-latest
