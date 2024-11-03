@@ -3,9 +3,9 @@ terraform {
 
   backend "s3" {
     bucket = "todo-app-terraform-state-agilisium"
-    key    = "terraform/terraform.tfstate"    # Path within the bucket for the state file
-    region = "ap-south-1"                 # AWS region for the bucket
-    encrypt = true                        # Enable encryption for state file
+    key    = "terraform/terraform.tfstate"
+    region = "ap-south-1"                 
+    encrypt = true
   }
 
   

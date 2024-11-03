@@ -1,15 +1,41 @@
+# SG for ALB
+resource "aws_security_group" "todo_alb_access_sg" {
+  name        = "todo-alb-access-sg"
+  description = "Security group for Todo Application Load Balancer"
+  vpc_id      = data.aws_vpc.default.id
+
+  # Inbound access for HTTP 
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "todo-alb-access-sg"
+  }
+}
+
 # SG for dummy application 
 resource "aws_security_group" "todo_app_access_sg" {
   name        = "todo-app-access-sg"
   description = "Security group for Todo application"
   vpc_id      = data.aws_vpc.default.id
 
-  # Inbound rule for port 8080 from all IPv4
+  # Inbound rule for port 8080, allowing only the ALB security group
   ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port                = 8080
+    to_port                  = 8080
+    protocol                 = "tcp"
+    security_groups          = [aws_security_group.todo_alb_access_sg.id]
   }
 
   # Outbound rule to all IPv4
