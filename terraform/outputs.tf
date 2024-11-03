@@ -12,7 +12,6 @@ output "db_name" {
 
 
 #ECR Repo URL
-output "ecr_repository_url" {
-  value = aws_ecr_repository.todo-app.repository_url
-  sensitive = true
+data "aws_ecr_repository" "ecr-repo" {
+  name = "todo-app"
 }
