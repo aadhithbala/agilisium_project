@@ -28,7 +28,7 @@ resource "aws_ecs_task_definition" "todo_app" {
       environment = [
         {
           name  = "DB_HOST"
-          value = aws_db_instance.todo_app_db.endpoint
+          value = aws_db_instance.todo_app_db.address
         },
         {
           name  = "DB_NAME"
