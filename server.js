@@ -2,15 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const path = __dirname + '/app/views/';
+const path = __dirname + "/app/views/";
 
 const app = express();
 
 app.use(express.static(path));
 
 var corsOptions = {
-  origin: '*',
-  credentials: false
+  origin: "*",
+  credentials: false,
 };
 
 app.use(cors(corsOptions));
@@ -29,7 +29,7 @@ db.sequelize.sync();
 //   console.log("Drop and re-sync db.");
 // });
 
-app.get('/', function (req,res) {
+app.get("/", function (req, res) {
   res.sendFile(path + "index.html");
 });
 
