@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "terraform/**" # Trigger if any Terraform file changes
+      - "!terraform/ecr-repo/**" #Exclude the ecr-repo directory
   workflow_run:
     workflows: ["Build and Push Docker Image to Private ECR"]
     types:
