@@ -39,7 +39,7 @@ resource "aws_ecs_task_definition" "todo_app" {
           value = var.db_username
         },
         {
-          name  = "DB_PASS"
+          name  = "DB_PASSWORD"
           value = var.db_password
         }
       ]
