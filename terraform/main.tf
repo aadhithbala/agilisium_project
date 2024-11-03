@@ -2,7 +2,7 @@
 terraform {
 
   backend "s3" {
-    bucket = var.terraform_state_bucket
+    bucket = var.terraform_remote_state   
     key    = "terraform/terraform.tfstate"    # Path within the bucket for the state file
     region = "ap-south-1"                 # AWS region for the bucket
     encrypt = true                        # Enable encryption for state file
