@@ -6,6 +6,11 @@ on:
       - master
     paths:
       - "terraform/ecr-repo/**"
+      - "app/**"
+      - "server.js"
+      - "package.json"
+      - "Dockerfile"
+      - "docker-compose.yml"
 
 jobs:
   terraform:
