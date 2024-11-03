@@ -18,4 +18,5 @@ data "aws_ecr_repository" "todo-app" {
 
 output "ecr_repository_url" {
   value = data.aws_ecr_repository.todo-app.repository_url
+  sensitive = true
 }
