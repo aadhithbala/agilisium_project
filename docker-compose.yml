@@ -5,16 +5,25 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}             
+      MYSQL_DATABASE: ${DB_NAME}
     ports:
-      - "3306:3306"                                         
+      - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql                            
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD}"]  # Check MySQL status
+      - mysql_data:/var/lib/mysql
+    healthcheck: #Healthcheck to prevent the app from starting before db
+      test: [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p${DB_PASSWORD}",
+        ] # Check MySQL status
       interval: 10s
-      timeout: 5s  
-      retries: 5  
+      timeout: 5s
+      retries: 5
 
   tutorial_app:
     image: todo_app:latest
@@ -23,13 +32,13 @@ services:
       - 8080:8080
     restart: unless-stopped
     environment:
-      DB_HOST: ${DB_HOST}                                    
-      DB_USER: ${DB_USER}                           
-      DB_PASSWORD: ${DB_PASSWORD}                
-      DB_NAME: ${DB_NAME}                          
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     depends_on:
       mysql:
-        condition: service_healthy                
+        condition: service_healthy
 
 volumes:
   mysql_data:
