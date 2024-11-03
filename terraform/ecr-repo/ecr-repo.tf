@@ -1,12 +1,11 @@
-# resource "aws_ecr_repository" "todo-app" {
-#   name                 = "todo-app"
-#   image_tag_mutability = "MUTABLE"
+resource "aws_ecr_repository" "todo-app" {
+  name                 = "todo-app"
+  image_tag_mutability = "MUTABLE"
 
-#   image_scanning_configuration {
-#     scan_on_push = false
-#   }
-# }
-
+  image_scanning_configuration {
+    scan_on_push = false
+  }
+}
 
 #Lifecycle policy to keep the private repo size within 500MB
 resource "aws_ecr_lifecycle_policy" "todo_app_policy" {

@@ -10,8 +10,12 @@ output "db_name" {
   sensitive = true
 }
 
+#ECR REPO URL
 
-#ECR Repo URL
-data "aws_ecr_repository" "ecr-repo" {
+data "aws_ecr_repository" "todo-app" {
   name = "todo-app"
+}
+
+output "ecr_repository_url" {
+  value = data.aws_ecr_repository.todo-app.repository_url
 }

@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "todo_app" {
   container_definitions = jsonencode([
     {
       name         = "todo-app"
-      image        = "${aws_ecr_repository.todo-app.repository_url}:latest"
+      image        = "${data.aws_ecr_repository.todo-app.repository_url}:latest"
       essential    = true
       cpu          = 200
       memory       = 512
